@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><ValidTokens xmlns="http://xsd.svobodni.cz/vs/ValidTokens-1.0.xsd" Ballot="volby1" Id="1">
+<TokenDigestValue>Qhu+DeUC104mnBFkN73BtWk2+/M=</TokenDigestValue>
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><DigestValue>/TIyP/z6tcEBsZc9/kP77+dPVbo=</DigestValue></Reference></SignedInfo><SignatureValue>bi67pGRA7b0xvgX5EW3BCthr0wNAsls3QpBsr/aWUJ+/xE32+OTbo0mA7WMZ8fYZfing5FDvernZ
+lgMixMdMW6THp3LEiypgeuC4UJg0Tw/Bhw3cdmsU4aHf9lGSUlEosrUXyWcba7TPrKhPeDtSPFam
+ZunuVU9bDRjhz7zNGjbksLLvLgtvleTIUdXIuJkbmDo62Z0w91ii9ynh+DNHrYvANlpMQ+5+1d8o
+xgDvopgfiuQzM1fK0eInS3LlboiPHDWYEGeuMODlX5tIDTOglriRPP1XQA0M27EqOReS3xMlvQNf
+ljWsqDGXyXhEpyu5s2nXzz4mcTt3YNydVvRJ7w==</SignatureValue><KeyInfo><X509Data><X509SubjectName>CN=rep2014,OU=ReP,O=Strana svobodnych obcanu,C=CZ,1.2.840.113549.1.9.1=#1610696e666f4073766f626f646e692e637a</X509SubjectName><X509Certificate>MIIDXjCCAkagAwIBAgIEUsA4RzANBgkqhkiG9w0BAQsFADBxMR8wHQYJKoZIhvcNAQkBFhBpbmZv
+QHN2b2JvZG5pLmN6MQswCQYDVQQGEwJDWjEhMB8GA1UECgwYU3RyYW5hIHN2b2JvZG55Y2ggb2Jj
+YW51MQwwCgYDVQQLDANSZVAxEDAOBgNVBAMMB3JlcDIwMTQwHhcNMTMxMjI5MTQ1NzQ3WhcNMTQx
+MjI5MTQ1NzQ3WjBxMR8wHQYJKoZIhvcNAQkBFhBpbmZvQHN2b2JvZG5pLmN6MQswCQYDVQQGEwJD
+WjEhMB8GA1UECgwYU3RyYW5hIHN2b2JvZG55Y2ggb2JjYW51MQwwCgYDVQQLDANSZVAxEDAOBgNV
+BAMMB3JlcDIwMTQwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCrJJOm4AjO8XS04KcD
+kwO8DKHpNnQDG09hfvUGwQibiOoK1QQOE3g+6JFf+4YVKXN/78htiRUZBjm+gLosPQ2wuPPCf8SU
+ibeIVnzkzt98fD+Egv6snS315ab7WUExs5vdNSW1tRokyJXRbT1J+cxASnnezk/CekVb35O3ymba
+UMUbWr9eSURtw2NW69P6KkdPXZAj67a26mDSAibCkM/SeAuIS2dIXLJozP0pX1TqkeTG1ZzfVx9o
+x2sc8+YPK1ARa18r7Ys+YJ0IRQrPnw1JKwc6cXSsmAG49RbjpS3dYOri2akPCGdYE9Hb6QAmI8KJ
+gONEn0OgdMH5cNGcYi99AgMBAAEwDQYJKoZIhvcNAQELBQADggEBAC1pEFCYh7Fu2QBxlP/8XxZH
+aKGDnpKi5QqpW2dOJg5JAhY1+aXHFfArmmuzOeqUFEA1MA/rGGkQDnQQWGILXdHcWvLU54xdHCYu
+b7un6q9cMEcgpwj1kE0uLWrmD7qyEMK3UflGITMRfr4kEuRTChxqLXdr760+ilgNszCrLm24NJWg
+1uVMEJ7yMwfFU3zbhVWJ3xiDq19wuuhSOoKrB+i7J6diDjonwUQW3mZOWcrIveqD3Im9/rsNoTz+
+A796gC0bJzKUcvSttmzgoboL+n/cuHgSmJEQG3gSY2CkEKMkgec+aXrSGHghAQDE6Xpg7EBeYSIM
+kMTJRKeGpIun6SY=</X509Certificate></X509Data></KeyInfo></Signature></ValidTokens>

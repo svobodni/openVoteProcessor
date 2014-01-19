@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Token xmlns="http://xsd.svobodni.cz/vs/Token-1.0.xsd" Id="token1">
+    <Ballot xmlns="http://xsd.svobodni.cz/vs/Ballot-1.0.xsd" Id="volby1">
+        <Name>Primárky pro volby do Evropského Parlamentu 2014</Name>
+        <Description>Popis hlasování včetně odkazu na seznam kandidátů</Description>
+        <Type>check</Type>
+        <MaxChecks>1</MaxChecks>
+        <StartTime>2014-01-31 00:00:00</StartTime>
+        <EndTime>2014-02-09 23:59:59</EndTime>
+        <Processor url="https://vk.svobodni.cz/vote.php">Volební komise</Processor>
+        <Processor url="https://volby.mmister.com/hlasuj.php">Martin Pánek
+        (kandidát)</Processor>
+        <Option value="MartinPanek">Ing. Martin Pánek</Option>
+        <Option value="JiriPayne">RNDr. Jiří Payne</Option>
+        <Stats type="Region">Kraj</Stats>
+        <Stats type="Relation">Druh voliče</Stats>
+        <ShowVoters>False</ShowVoters>
+        </Ballot>
+    <Stats id="11" type="Region">Středočeský kraj</Stats>
+    <Stats id="Member" type="Relation">Člen strany</Stats>
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><DigestValue>Qhu+DeUC104mnBFkN73BtWk2+/M=</DigestValue></Reference></SignedInfo><SignatureValue>T8UYgQ0+Bi6fxUanFNymWzgqnFxBUMLQ0BSay+7fVqSWNnnAcqTPpk5JOIibSvWr80YwqUTILqfX
+UEcdL3J95lHBCxZpC19f4M2mLZ84K23qc7jWOPpT+z1/edKBUkPow4ucCrigEQurlxVLu5jsoA8e
+IU1bdPGHGkuXLluxDOGSm9OjbUUUFOFjQ2riVxPq/ooDSxtfjXpr3jzefREPaXIa1Oi7ixJIg58U
+Dvvo16gggipuzC72mAeckjcGnzGJPfqDc0ad1uspP26I+yNiThwjyH4bZE8OZHq8fFNAhGwouFB5
+sVYhB42bzmuSf44P9S13g42QOyjhamfdG4y1uw==</SignatureValue><KeyInfo><X509Data><X509SubjectName>CN=rep2014,OU=ReP,O=Strana svobodnych obcanu,C=CZ,1.2.840.113549.1.9.1=#1610696e666f4073766f626f646e692e637a</X509SubjectName><X509Certificate>MIIDXjCCAkagAwIBAgIEUsA4RzANBgkqhkiG9w0BAQsFADBxMR8wHQYJKoZIhvcNAQkBFhBpbmZv
+QHN2b2JvZG5pLmN6MQswCQYDVQQGEwJDWjEhMB8GA1UECgwYU3RyYW5hIHN2b2JvZG55Y2ggb2Jj
+YW51MQwwCgYDVQQLDANSZVAxEDAOBgNVBAMMB3JlcDIwMTQwHhcNMTMxMjI5MTQ1NzQ3WhcNMTQx
+MjI5MTQ1NzQ3WjBxMR8wHQYJKoZIhvcNAQkBFhBpbmZvQHN2b2JvZG5pLmN6MQswCQYDVQQGEwJD
+WjEhMB8GA1UECgwYU3RyYW5hIHN2b2JvZG55Y2ggb2JjYW51MQwwCgYDVQQLDANSZVAxEDAOBgNV
+BAMMB3JlcDIwMTQwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCrJJOm4AjO8XS04KcD
+kwO8DKHpNnQDG09hfvUGwQibiOoK1QQOE3g+6JFf+4YVKXN/78htiRUZBjm+gLosPQ2wuPPCf8SU
+ibeIVnzkzt98fD+Egv6snS315ab7WUExs5vdNSW1tRokyJXRbT1J+cxASnnezk/CekVb35O3ymba
+UMUbWr9eSURtw2NW69P6KkdPXZAj67a26mDSAibCkM/SeAuIS2dIXLJozP0pX1TqkeTG1ZzfVx9o
+x2sc8+YPK1ARa18r7Ys+YJ0IRQrPnw1JKwc6cXSsmAG49RbjpS3dYOri2akPCGdYE9Hb6QAmI8KJ
+gONEn0OgdMH5cNGcYi99AgMBAAEwDQYJKoZIhvcNAQELBQADggEBAC1pEFCYh7Fu2QBxlP/8XxZH
+aKGDnpKi5QqpW2dOJg5JAhY1+aXHFfArmmuzOeqUFEA1MA/rGGkQDnQQWGILXdHcWvLU54xdHCYu
+b7un6q9cMEcgpwj1kE0uLWrmD7qyEMK3UflGITMRfr4kEuRTChxqLXdr760+ilgNszCrLm24NJWg
+1uVMEJ7yMwfFU3zbhVWJ3xiDq19wuuhSOoKrB+i7J6diDjonwUQW3mZOWcrIveqD3Im9/rsNoTz+
+A796gC0bJzKUcvSttmzgoboL+n/cuHgSmJEQG3gSY2CkEKMkgec+aXrSGHghAQDE6Xpg7EBeYSIM
+kMTJRKeGpIun6SY=</X509Certificate></X509Data></KeyInfo></Signature></Token>

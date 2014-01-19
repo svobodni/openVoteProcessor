@@ -1,0 +1,109 @@
+@main("Open Vote Processor") {
+<script type="text/javascript">
+$(document).ready(function() {
+	var tokenDom;
+	var voteDom;
+	$('#btn-load').click(function() {
+		parser=new DOMParser();
+		tokenDom=parser.parseFromString($('#token').val(),"application/xml");
+		//console.log(tokenDom);
+		$('#name').text($(tokenDom).find('Ballot Name').text());
+		$('#description').text($(tokenDom).find('Ballot Description').text());
+		var $options = $('#options');
+		$options.html('');
+		$(tokenDom).find('Option').each(function() {
+			var $option=$('<li></li>');
+			var $label=$('<label></label>');
+			var $cb=$('<input type="checkbox" />');
+			$cb.attr('value', $(this).attr('value'));
+			//$cb.text($(this).text());
+			$label.append($cb);
+			$label.append($('<span />').text($(this).text()));
+			$option.append($label);
+			$options.append($option);
+		});
+		$('#salt').val(Math.random());
+	});
+	$('#btn-create-vote').click(function() {
+		parser=new DOMParser();
+		voteDom=parser.parseFromString('<?xml version="1.0" encoding="UTF-8" standalone="no"?><Vote xmlns="http://xsd.svobodni.cz/vs/Vote-1.0.xsd"></Vote>',"application/xml");
+		var $vote=$(voteDom).find('Vote');
+		$vote.append($(tokenDom).find('Token')[0].cloneNode(true));
+		var ns='http://xsd.svobodni.cz/vs/Vote-1.0.xsd';
+		$('#options input:checked').each(function() {
+			var option = voteDom.createElementNS(ns,'Option');
+			option.textContent="check";
+			option.setAttribute('value', $(this).attr('value'));
+			$vote.append(option);
+		});
+		var salt=voteDom.createElementNS(ns,'Salt');
+		salt.textContent=$('#salt').val();
+		
+		$vote.append(salt);
+		$('#vote').text($.format((new XMLSerializer()).serializeToString(voteDom)));
+	});
+	$('#btn-vote').click(function() {
+		$.ajax({
+			url: '/api/v1/Vote',
+			type: "POST",
+			data: (new XMLSerializer()).serializeToString(voteDom),
+			processData: false,
+			contentType: "application/xml",
+			success: function(response) {
+			  $('#response').text($.format(response));  
+			},
+		});
+	});
+});
+</script>
+<textarea cols="80" rows="20" id="token">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&lt;Token xmlns=&quot;http://xsd.svobodni.cz/vs/Token-1.0.xsd&quot; Id=&quot;token1&quot;&gt;
+    &lt;Ballot xmlns=&quot;http://xsd.svobodni.cz/vs/Ballot-1.0.xsd&quot; Id=&quot;volby1&quot;&gt;
+        &lt;Name&gt;Prim&aacute;rky pro volby do Evropsk&eacute;ho Parlamentu 2014&lt;/Name&gt;
+        &lt;Description&gt;Popis hlasov&aacute;n&iacute; v&#x010d;etn&#x011b; odkazu na seznam kandid&aacute;t&#x016f;&lt;/Description&gt;
+        &lt;Type&gt;check&lt;/Type&gt;
+        &lt;MaxChecks&gt;1&lt;/MaxChecks&gt;
+        &lt;StartTime&gt;2014-01-31 00:00:00&lt;/StartTime&gt;
+        &lt;EndTime&gt;2014-02-09 23:59:59&lt;/EndTime&gt;
+        &lt;Processor url=&quot;https://vk.svobodni.cz/vote.php&quot;&gt;Volebn&iacute; komise&lt;/Processor&gt;
+        &lt;Processor url=&quot;https://volby.mmister.com/hlasuj.php&quot;&gt;Martin P&aacute;nek
+        (kandid&aacute;t)&lt;/Processor&gt;
+        &lt;Option value=&quot;MartinPanek&quot;&gt;Ing. Martin P&aacute;nek&lt;/Option&gt;
+        &lt;Option value=&quot;JiriPayne&quot;&gt;RNDr. Ji&#x0159;&iacute; Payne&lt;/Option&gt;
+        &lt;Stats type=&quot;Region&quot;&gt;Kraj&lt;/Stats&gt;
+        &lt;Stats type=&quot;Relation&quot;&gt;Druh voli&#x010d;e&lt;/Stats&gt;
+        &lt;ShowVoters&gt;False&lt;/ShowVoters&gt;
+        &lt;/Ballot&gt;
+    &lt;Stats id=&quot;11&quot; type=&quot;Region&quot;&gt;St&#x0159;edo&#x010d;esk&yacute; kraj&lt;/Stats&gt;
+    &lt;Stats id=&quot;Member&quot; type=&quot;Relation&quot;&gt;&#x010c;len strany&lt;/Stats&gt;
+&lt;Signature xmlns=&quot;http://www.w3.org/2000/09/xmldsig#&quot;&gt;&lt;SignedInfo&gt;&lt;CanonicalizationMethod Algorithm=&quot;http://www.w3.org/2001/10/xml-exc-c14n#&quot;/&gt;&lt;SignatureMethod Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#rsa-sha1&quot;/&gt;&lt;Reference URI=&quot;&quot;&gt;&lt;Transforms&gt;&lt;Transform Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#enveloped-signature&quot;/&gt;&lt;/Transforms&gt;&lt;DigestMethod Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#sha1&quot;/&gt;&lt;DigestValue&gt;Qhu+DeUC104mnBFkN73BtWk2+/M=&lt;/DigestValue&gt;&lt;/Reference&gt;&lt;/SignedInfo&gt;&lt;SignatureValue&gt;T8UYgQ0+Bi6fxUanFNymWzgqnFxBUMLQ0BSay+7fVqSWNnnAcqTPpk5JOIibSvWr80YwqUTILqfX
+UEcdL3J95lHBCxZpC19f4M2mLZ84K23qc7jWOPpT+z1/edKBUkPow4ucCrigEQurlxVLu5jsoA8e
+IU1bdPGHGkuXLluxDOGSm9OjbUUUFOFjQ2riVxPq/ooDSxtfjXpr3jzefREPaXIa1Oi7ixJIg58U
+Dvvo16gggipuzC72mAeckjcGnzGJPfqDc0ad1uspP26I+yNiThwjyH4bZE8OZHq8fFNAhGwouFB5
+sVYhB42bzmuSf44P9S13g42QOyjhamfdG4y1uw==&lt;/SignatureValue&gt;&lt;KeyInfo&gt;&lt;X509Data&gt;&lt;X509SubjectName&gt;CN=rep2014,OU=ReP,O=Strana svobodnych obcanu,C=CZ,1.2.840.113549.1.9.1=#1610696e666f4073766f626f646e692e637a&lt;/X509SubjectName&gt;&lt;X509Certificate&gt;MIIDXjCCAkagAwIBAgIEUsA4RzANBgkqhkiG9w0BAQsFADBxMR8wHQYJKoZIhvcNAQkBFhBpbmZv
+QHN2b2JvZG5pLmN6MQswCQYDVQQGEwJDWjEhMB8GA1UECgwYU3RyYW5hIHN2b2JvZG55Y2ggb2Jj
+YW51MQwwCgYDVQQLDANSZVAxEDAOBgNVBAMMB3JlcDIwMTQwHhcNMTMxMjI5MTQ1NzQ3WhcNMTQx
+MjI5MTQ1NzQ3WjBxMR8wHQYJKoZIhvcNAQkBFhBpbmZvQHN2b2JvZG5pLmN6MQswCQYDVQQGEwJD
+WjEhMB8GA1UECgwYU3RyYW5hIHN2b2JvZG55Y2ggb2JjYW51MQwwCgYDVQQLDANSZVAxEDAOBgNV
+BAMMB3JlcDIwMTQwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCrJJOm4AjO8XS04KcD
+kwO8DKHpNnQDG09hfvUGwQibiOoK1QQOE3g+6JFf+4YVKXN/78htiRUZBjm+gLosPQ2wuPPCf8SU
+ibeIVnzkzt98fD+Egv6snS315ab7WUExs5vdNSW1tRokyJXRbT1J+cxASnnezk/CekVb35O3ymba
+UMUbWr9eSURtw2NW69P6KkdPXZAj67a26mDSAibCkM/SeAuIS2dIXLJozP0pX1TqkeTG1ZzfVx9o
+x2sc8+YPK1ARa18r7Ys+YJ0IRQrPnw1JKwc6cXSsmAG49RbjpS3dYOri2akPCGdYE9Hb6QAmI8KJ
+gONEn0OgdMH5cNGcYi99AgMBAAEwDQYJKoZIhvcNAQELBQADggEBAC1pEFCYh7Fu2QBxlP/8XxZH
+aKGDnpKi5QqpW2dOJg5JAhY1+aXHFfArmmuzOeqUFEA1MA/rGGkQDnQQWGILXdHcWvLU54xdHCYu
+b7un6q9cMEcgpwj1kE0uLWrmD7qyEMK3UflGITMRfr4kEuRTChxqLXdr760+ilgNszCrLm24NJWg
+1uVMEJ7yMwfFU3zbhVWJ3xiDq19wuuhSOoKrB+i7J6diDjonwUQW3mZOWcrIveqD3Im9/rsNoTz+
+A796gC0bJzKUcvSttmzgoboL+n/cuHgSmJEQG3gSY2CkEKMkgec+aXrSGHghAQDE6Xpg7EBeYSIM
+kMTJRKeGpIun6SY=&lt;/X509Certificate&gt;&lt;/X509Data&gt;&lt;/KeyInfo&gt;&lt;/Signature&gt;&lt;/Token&gt;</textarea>
+<br/>
+<button id="btn-load">Load</button>
+<h3 id="name"></h3>
+<span id="description"></span>
+<ul id="options"></ul>
+Salt: <input type="text" id="salt" />
+<br/>
+<button id="btn-create-vote">Create vote</button>
+<pre id="vote"></pre>
+<button id="btn-vote">Vote</button>
+<pre id="response"></pre>
+}

@@ -1,0 +1,102 @@
+@main("Open Vote Processor") {
+<script type="text/javascript">
+$('document').ready(function() {
+	$('#voteform, #ballotform, #validtokensform').submit(function() {
+		var $this=$(this);
+		$.ajax({
+			url: $this.attr('action'),
+			type: "POST",
+			data: $this.find('[name="xml"]').val(),
+			processData: false,
+			contentType: "application/xml",
+			success: function(response) {
+				$this.find('.output').text(response);  
+			},
+		});
+		return false;
+	});
+});
+	</script>
+    <a href="@routes.Application.ballots">Ballots</a>
+    <a href="@routes.Application.vote">Vote</a>
+
+    <h4>Test signature</h4>
+    <form action="/api/v1/Test" method="POST" id="voteform">
+        <textarea cols="100" rows="20" name="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&lt;Vote xmlns=&quot;http://xsd.svobodni.cz/vs/Vote-1.0.xsd&quot;&gt;
+&lt;Token xmlns=&quot;http://xsd.svobodni.cz/vs/Token-1.0.xsd&quot;&gt;cel&yacute; token s podpisem&lt;/Token&gt;
+&lt;Option value=&quot;MartinPanek&quot;&gt;check&lt;/Option&gt;
+&lt;Salt&gt;TotoJeKryptografickaSul,abyMojeHasheNemohlZadavatelAniOdhadnout&lt;/Salt&gt;
+&lt;/Vote&gt;</textarea><br/>
+        <input type="submit">
+        <pre class="output"></pre>
+    </form>
+
+    <h4>Ballot</h4>
+    <form action="/api/v1/Ballot" method="POST" id="ballotform">
+        <textarea cols="100" rows="20" name="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&lt;Ballot xmlns=&quot;http://xsd.svobodni.cz/vs/Ballot-1.0.xsd&quot; Id=&quot;volby1&quot;&gt;
+&lt;Name&gt;Prim&aacute;rky pro volby do Evropsk&eacute;ho Parlamentu 2014&lt;/Name&gt;
+&lt;Description&gt;Popis hlasov&aacute;n&iacute; v&#x010d;etn&#x011b; odkazu na seznam kandid&aacute;t&#x016f;&lt;/Description&gt;
+&lt;Type&gt;check&lt;/Type&gt;
+&lt;MaxChecks&gt;1&lt;/MaxChecks&gt;
+&lt;StartTime&gt;2014-01-31 00:00:00&lt;/StartTime&gt;
+&lt;EndTime&gt;2014-02-09 23:59:59&lt;/EndTime&gt;
+&lt;Processor url=&quot;https://vk.svobodni.cz/vote.php&quot;&gt;Volebn&iacute; komise&lt;/Processor&gt;
+&lt;Processor url=&quot;https://volby.mmister.com/hlasuj.php&quot;&gt;Martin P&aacute;nek
+(kandid&aacute;t)&lt;/Processor&gt;
+&lt;Option value=&quot;MartinPanek&quot;&gt;Ing. Martin P&aacute;nek&lt;/Option&gt;
+&lt;Option value=&quot;JiriPayne&quot;&gt;RNDr. Ji&#x0159;&iacute; Payne&lt;/Option&gt;
+&lt;Stats type=&quot;Region&quot;&gt;Kraj&lt;/Stats&gt;
+&lt;Stats type=&quot;Relation&quot;&gt;Druh voli&#x010d;e&lt;/Stats&gt;
+&lt;ShowVoters&gt;False&lt;/ShowVoters&gt;
+&lt;Signature xmlns=&quot;http://www.w3.org/2000/09/xmldsig#&quot;&gt;&lt;SignedInfo&gt;&lt;CanonicalizationMethod Algorithm=&quot;http://www.w3.org/2001/10/xml-exc-c14n#&quot;/&gt;&lt;SignatureMethod Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#rsa-sha1&quot;/&gt;&lt;Reference URI=&quot;&quot;&gt;&lt;Transforms&gt;&lt;Transform Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#enveloped-signature&quot;/&gt;&lt;/Transforms&gt;&lt;DigestMethod Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#sha1&quot;/&gt;&lt;DigestValue&gt;WPj1SvciuNbJKQxhCL7JLPxpLaA=&lt;/DigestValue&gt;&lt;/Reference&gt;&lt;/SignedInfo&gt;&lt;SignatureValue&gt;Gd6bsFcJb5a0hsn/nAJfhMrnP1D6ieALbJ79SSze70hoeFowc9sba3kBq9RonuiE9dAx4milsDwH
+ONuJU5aWImgbgGskrxyP2k87QvTQD8fKmyek2K2tRkQo2o6Njad2T7kHjI0aQ1nobEMQgBZswSiG
+3QdzGtixhwArOwo1rqaDT0VzyjJ2mrIa2eZRrfCuwQA6OxQHDVr4Ak/610C2apmeOJgzG2lpq/tu
+5khNvoX5UsTfmGhaQ3/RZg2p2p4aD9hz0JddhH1lXQWMYfGxS0+xjGrR9hXXltViWgKuF7NyX+JR
+as/95B7gFBNVvQBiMF6FzhqxTyaCRBFtt4H1VA==&lt;/SignatureValue&gt;&lt;KeyInfo&gt;&lt;X509Data&gt;&lt;X509SubjectName&gt;CN=rep2014,OU=ReP,O=Strana svobodnych obcanu,C=CZ,1.2.840.113549.1.9.1=#1610696e666f4073766f626f646e692e637a&lt;/X509SubjectName&gt;&lt;X509Certificate&gt;MIIDXjCCAkagAwIBAgIEUsA4RzANBgkqhkiG9w0BAQsFADBxMR8wHQYJKoZIhvcNAQkBFhBpbmZv
+QHN2b2JvZG5pLmN6MQswCQYDVQQGEwJDWjEhMB8GA1UECgwYU3RyYW5hIHN2b2JvZG55Y2ggb2Jj
+YW51MQwwCgYDVQQLDANSZVAxEDAOBgNVBAMMB3JlcDIwMTQwHhcNMTMxMjI5MTQ1NzQ3WhcNMTQx
+MjI5MTQ1NzQ3WjBxMR8wHQYJKoZIhvcNAQkBFhBpbmZvQHN2b2JvZG5pLmN6MQswCQYDVQQGEwJD
+WjEhMB8GA1UECgwYU3RyYW5hIHN2b2JvZG55Y2ggb2JjYW51MQwwCgYDVQQLDANSZVAxEDAOBgNV
+BAMMB3JlcDIwMTQwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCrJJOm4AjO8XS04KcD
+kwO8DKHpNnQDG09hfvUGwQibiOoK1QQOE3g+6JFf+4YVKXN/78htiRUZBjm+gLosPQ2wuPPCf8SU
+ibeIVnzkzt98fD+Egv6snS315ab7WUExs5vdNSW1tRokyJXRbT1J+cxASnnezk/CekVb35O3ymba
+UMUbWr9eSURtw2NW69P6KkdPXZAj67a26mDSAibCkM/SeAuIS2dIXLJozP0pX1TqkeTG1ZzfVx9o
+x2sc8+YPK1ARa18r7Ys+YJ0IRQrPnw1JKwc6cXSsmAG49RbjpS3dYOri2akPCGdYE9Hb6QAmI8KJ
+gONEn0OgdMH5cNGcYi99AgMBAAEwDQYJKoZIhvcNAQELBQADggEBAC1pEFCYh7Fu2QBxlP/8XxZH
+aKGDnpKi5QqpW2dOJg5JAhY1+aXHFfArmmuzOeqUFEA1MA/rGGkQDnQQWGILXdHcWvLU54xdHCYu
+b7un6q9cMEcgpwj1kE0uLWrmD7qyEMK3UflGITMRfr4kEuRTChxqLXdr760+ilgNszCrLm24NJWg
+1uVMEJ7yMwfFU3zbhVWJ3xiDq19wuuhSOoKrB+i7J6diDjonwUQW3mZOWcrIveqD3Im9/rsNoTz+
+A796gC0bJzKUcvSttmzgoboL+n/cuHgSmJEQG3gSY2CkEKMkgec+aXrSGHghAQDE6Xpg7EBeYSIM
+kMTJRKeGpIun6SY=&lt;/X509Certificate&gt;&lt;/X509Data&gt;&lt;/KeyInfo&gt;&lt;/Signature&gt;&lt;/Ballot&gt;</textarea><br/>
+        <input type="submit">
+        <pre class="output"></pre>
+    </form>
+    <h4>ValidTokens</h4>
+    <form action="/api/v1/ValidTokens" method="POST" id="validtokensform">
+        <textarea cols="100" rows="20" name="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&lt;ValidTokens xmlns=&quot;http://xsd.svobodni.cz/vs/ValidTokens-1.0.xsd&quot; Ballot=&quot;volby1&quot; Id=&quot;1&quot;&gt;
+&lt;TokenDigestValue&gt;Qhu+DeUC104mnBFkN73BtWk2+/M=&lt;/TokenDigestValue&gt;
+&lt;Signature xmlns=&quot;http://www.w3.org/2000/09/xmldsig#&quot;&gt;&lt;SignedInfo&gt;&lt;CanonicalizationMethod Algorithm=&quot;http://www.w3.org/2001/10/xml-exc-c14n#&quot;/&gt;&lt;SignatureMethod Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#rsa-sha1&quot;/&gt;&lt;Reference URI=&quot;&quot;&gt;&lt;Transforms&gt;&lt;Transform Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#enveloped-signature&quot;/&gt;&lt;/Transforms&gt;&lt;DigestMethod Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#sha1&quot;/&gt;&lt;DigestValue&gt;/TIyP/z6tcEBsZc9/kP77+dPVbo=&lt;/DigestValue&gt;&lt;/Reference&gt;&lt;/SignedInfo&gt;&lt;SignatureValue&gt;bi67pGRA7b0xvgX5EW3BCthr0wNAsls3QpBsr/aWUJ+/xE32+OTbo0mA7WMZ8fYZfing5FDvernZ
+lgMixMdMW6THp3LEiypgeuC4UJg0Tw/Bhw3cdmsU4aHf9lGSUlEosrUXyWcba7TPrKhPeDtSPFam
+ZunuVU9bDRjhz7zNGjbksLLvLgtvleTIUdXIuJkbmDo62Z0w91ii9ynh+DNHrYvANlpMQ+5+1d8o
+xgDvopgfiuQzM1fK0eInS3LlboiPHDWYEGeuMODlX5tIDTOglriRPP1XQA0M27EqOReS3xMlvQNf
+ljWsqDGXyXhEpyu5s2nXzz4mcTt3YNydVvRJ7w==&lt;/SignatureValue&gt;&lt;KeyInfo&gt;&lt;X509Data&gt;&lt;X509SubjectName&gt;CN=rep2014,OU=ReP,O=Strana svobodnych obcanu,C=CZ,1.2.840.113549.1.9.1=#1610696e666f4073766f626f646e692e637a&lt;/X509SubjectName&gt;&lt;X509Certificate&gt;MIIDXjCCAkagAwIBAgIEUsA4RzANBgkqhkiG9w0BAQsFADBxMR8wHQYJKoZIhvcNAQkBFhBpbmZv
+QHN2b2JvZG5pLmN6MQswCQYDVQQGEwJDWjEhMB8GA1UECgwYU3RyYW5hIHN2b2JvZG55Y2ggb2Jj
+YW51MQwwCgYDVQQLDANSZVAxEDAOBgNVBAMMB3JlcDIwMTQwHhcNMTMxMjI5MTQ1NzQ3WhcNMTQx
+MjI5MTQ1NzQ3WjBxMR8wHQYJKoZIhvcNAQkBFhBpbmZvQHN2b2JvZG5pLmN6MQswCQYDVQQGEwJD
+WjEhMB8GA1UECgwYU3RyYW5hIHN2b2JvZG55Y2ggb2JjYW51MQwwCgYDVQQLDANSZVAxEDAOBgNV
+BAMMB3JlcDIwMTQwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCrJJOm4AjO8XS04KcD
+kwO8DKHpNnQDG09hfvUGwQibiOoK1QQOE3g+6JFf+4YVKXN/78htiRUZBjm+gLosPQ2wuPPCf8SU
+ibeIVnzkzt98fD+Egv6snS315ab7WUExs5vdNSW1tRokyJXRbT1J+cxASnnezk/CekVb35O3ymba
+UMUbWr9eSURtw2NW69P6KkdPXZAj67a26mDSAibCkM/SeAuIS2dIXLJozP0pX1TqkeTG1ZzfVx9o
+x2sc8+YPK1ARa18r7Ys+YJ0IRQrPnw1JKwc6cXSsmAG49RbjpS3dYOri2akPCGdYE9Hb6QAmI8KJ
+gONEn0OgdMH5cNGcYi99AgMBAAEwDQYJKoZIhvcNAQELBQADggEBAC1pEFCYh7Fu2QBxlP/8XxZH
+aKGDnpKi5QqpW2dOJg5JAhY1+aXHFfArmmuzOeqUFEA1MA/rGGkQDnQQWGILXdHcWvLU54xdHCYu
+b7un6q9cMEcgpwj1kE0uLWrmD7qyEMK3UflGITMRfr4kEuRTChxqLXdr760+ilgNszCrLm24NJWg
+1uVMEJ7yMwfFU3zbhVWJ3xiDq19wuuhSOoKrB+i7J6diDjonwUQW3mZOWcrIveqD3Im9/rsNoTz+
+A796gC0bJzKUcvSttmzgoboL+n/cuHgSmJEQG3gSY2CkEKMkgec+aXrSGHghAQDE6Xpg7EBeYSIM
+kMTJRKeGpIun6SY=&lt;/X509Certificate&gt;&lt;/X509Data&gt;&lt;/KeyInfo&gt;&lt;/Signature&gt;&lt;/ValidTokens&gt;</textarea><br/>
+        <input type="submit">
+        <pre class="output"></pre>
+    </form>
+
+}

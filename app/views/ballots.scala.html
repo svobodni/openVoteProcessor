@@ -1,0 +1,52 @@
+@(ballots: List[Ballot])
+
+@main("Ballot") {
+	@for(ballot <- ballots) {
+		<div>
+			<h3>@(ballot.getName()) (@(ballot.getExternalId()))</h3>
+			Start: @ballot.getStartTime() <br />
+			End: @ballot.getEndTime() <br />
+			MaxChecks: @ballot.getMaxChecks() <br />
+			<h4>Options</h4>
+			<ul>
+				@for(bo <- ballot.getOptions()) {
+					<li>
+						@(bo.getName()) (@(bo.getValue()))
+						<ul>
+						@bo.getVotes().size():
+							@for(vote <- bo.getVotes()) {
+								<li>Vote DV: @vote.getVoteDigestValue()</li>
+							}
+						</ul>
+					</li>
+				}
+			</ul>
+			<h4>Valid tokens</h4>
+			<ul>
+				@for(vt <- ballot.getValidTokens()) {
+					<li>
+						@vt.getCreatedTime()
+						<ul>
+							@for(dv <- vt.getDigestValues()) {
+								<li>@dv</li>
+							}
+						</ul>
+					</li>
+				}
+			</ul>
+			<h4>Votes</h4>
+			<ul>
+				@for(vote <- ballot.getCastVotes()) {
+					<li>
+						Token DV: @vote.getTokenDigestValue() Vote DV: @vote.getVoteDigestValue()
+						<ul>
+							@for(bo <- vote.getBallotOptions()) {
+								<li>@bo.getName()</li>
+							}
+						</ul>
+					</li>
+				}
+			</ul>
+		</div>
+	}
+}
